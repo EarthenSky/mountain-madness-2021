@@ -11,9 +11,9 @@ my submission for mountain madness 2021
 none
 
 # Tasks:
-- text w/ salt & pepper filter / other kinds of filters / warps. (traditional text captcha)
-- word vocalizing / vocaloid library.
-- circle moving nodes of random shape and colour
-- histogram move thing
-- website design
-- [feel free to add more tasks]
+1. text w/ salt & pepper filter / other kinds of filters / warps. (traditional text captcha) -> **axiom**
+2. word vocalizing / vocaloid library. -> last person
+3. circle moving nodes of random shape and colour -> **gabe**
+4. histogram move thing -> **raj**
+5. Different kinds of objects & selecting -> like recaptcha -> **justin**
+- website design -> **raj**
