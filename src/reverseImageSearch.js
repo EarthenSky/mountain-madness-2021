@@ -16,9 +16,13 @@ table.setAttribute("id", "imageTable");
 document.body.appendChild(table);
 document.getElementById("reverseImageSearch");
 
-var cells = document.createElement("TR");
-cells.setAttribute("id", "imgCell");
+var rows = document.createElement("TR");
+rows.setAttribute("id", "tableRows");
 document.getElementById("imageTable").appendChild(cells);
+
+var dividers = document.createElement("TD");
+var cells = document.createTextNode("cell");
+z.appendChild(t);
 
 for(let i = 0; i < 9; i++) {
     createImage("img" + i);
