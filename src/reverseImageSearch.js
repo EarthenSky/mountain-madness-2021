@@ -18,7 +18,7 @@ document.getElementById("reverseImageSearch");
 
 var rows = document.createElement("TR");
 rows.setAttribute("id", "tableRows");
-document.getElementById("imageTable").appendChild(cells);
+//document.getElementById("imageTable").appendChild(cells);
 
 var dividers = document.createElement("TD");
 var cells = document.createElementNode("cell");
@@ -26,10 +26,6 @@ dividers.appendChild(cells);
 document.getElementById("tableRows").appendChild(dividers);
 
 for(let i = 0; i < 9; i++) {
-    createImage("img" + i);
-    
+    createImage("img" + i);   
 }
-
-
-
 //document.getElementById("reverseImageSearch.js").innerHTML = images;
