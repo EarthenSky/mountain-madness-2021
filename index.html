@@ -1,44 +1,82 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <title>Cool name here</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Gotta Captcha Them All</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="315049676258-smm5dq3alfauum85pjrm3balduqrklr9.apps.googleusercontent.com" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- d3.js brush tool -->
+    <script src="https://d3js.org/d3-color.v2.min.js"></script>
+    <script src="https://d3js.org/d3-dispatch.v2.min.js"></script>
+    <script src="https://d3js.org/d3-ease.v2.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+    <script src="https://d3js.org/d3-timer.v2.min.js"></script>
+    <script src="https://d3js.org/d3-selection.v2.min.js"></script>
+    <script src="https://d3js.org/d3-transition.v2.min.js"></script>
+    <script src="https://d3js.org/d3-drag.v2.min.js"></script>
+    <script src="https://d3js.org/d3-brush.v2.min.js"></script>
+    <script>
+        var brush = d3.brush();
+    </script>
 
-    <body>
-        <h3>Solve the following captchas to prove you are human:</h3>
-        
-        <div class="widget"> 
-            <h4>Captcha 1: asgdasdg </h4>
-            
-        </div>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
+    </script>
+</head>
 
-        <div class="widget"> 
-            <h4>Captcha 2: asgdasdg </h4>
-            
-        </div>
+<body onload="generator(), tts()">
+    <h3>Solve the following captchas to gain access:</h3>
 
-        <div class="widget">
+    <div class="widget">
+        <h4>Captcha 1: Traditional Text Captcha </h4>
+        <form onsubmit="validator()">
+            <div id="captcha"></div>
+            <input type="text" placeholder="Captcha Code Here" id="Captcha_Box" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="widget">
+        <h4>Captcha 2: Audio Captcha </h4>
+        <button onclick="tts()"> Play the code </button>
+        <button onclick="makeid()"> Generate New code </button>
+        <form onsubmit="voice_validator()">
+            <input type="text" placeholder="Whatever you hear, type here IN CAPITALS" id="voice_box" />
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
+
+    <div class="widget">
             <h4 id="cap3-title">Captcha 3: </h4>
             <canvas width=400 height=400 id="circle-canvas"></canvas>
             <p id="cap3-complete"></p>
-        </div>
+     </div>
 
-        <div class="widget"> 
-            <h4>Captcha 4: asgdasdg </h4>
-            
-        </div>
+    <div class="widget">
+        <h4>Captcha 4: asgdasdg </h4>
 
-        <div class="widget"> 
-            <h4>Captcha 5: asgdasdg </h4>
-            
-        </div>
+    </div>
 
-        <button onclick="button_press()">alert button</button>
+    <div class="widget" id="reverseImageSearch">
+        <h4>Captcha 5: Reverse Image Search </h4>
+        <h5>Select all images that have the following:</h5>
 
-        <!-- insert your js here -->
-        <script src="src/test.js"></script>
-        <script src="src/circle-nodes.js"></script>
-    </body>
+    </div>
 
+    <button onclick="button_press()">alert button</button>
+
+    <!-- insert your js here -->
+
+    <script src="src/test.js"></script>
+    <script src="src/reverseImageSearch.js"></script>
+    <script src="./script.js"></script>
+    <script src="src/circle-nodes.js"></script>
+    <!-- <script src="src/test.js"></script> -->
+</body>
 </html>
