@@ -6,8 +6,8 @@ const COLOURS = ["lightgreen", "lightblue", "pink", "orange", "yellow", "violet"
 const SHAPES = [CIRCLE, RECT, TRI]; // 3 shapes
 
 // global variables
-var canvas = document.getElementById("circle-canvas");
-var ctx = canvas.getContext("2d");
+var canvas2 = document.getElementById("circle-canvas");
+var ctx = canvas2.getContext("2d");
 
 // -------------------------------------------------------------------------- //
 
@@ -153,8 +153,8 @@ class Shape {
         if (this.x < 0) { this.x = 0; this.changeDirection(); }
         else if (this.y < 0) { this.y = 0; this.changeDirection(); }
         
-        if (this.x > canvas.width) { this.x = canvas.width; this.changeDirection(); }
-        else if (this.y > canvas.height) { this.y = canvas.height; this.changeDirection(); }
+        if (this.x > canvas2.width) { this.x = canvas2.width; this.changeDirection(); }
+        else if (this.y > canvas2.height) { this.y = canvas2.height; this.changeDirection(); }
     }
 
     // TODO: improve collision detection by a bit.
@@ -202,8 +202,9 @@ const minLineSegments = 3;
 const minSegmentSize = 15;
 
 var isMouseDown = false;
+
 // setting up mouse event listeners.
-canvas.addEventListener("mousemove", function (e) {
+canvas2.addEventListener("mousemove", function (e) {
     if (isMouseDown && distance(e.offsetX, e.offsetY, lastPoint[0], lastPoint[1]) >= minSegmentSize) {
         //checks if the point is close to the starting point to set mousedown to false.
         if (lineSegments.length > minLineSegments && distance(e.offsetX, e.offsetY, startPoint[0], startPoint[1]) <= epsilon) {
@@ -230,21 +231,22 @@ canvas.addEventListener("mousemove", function (e) {
     }
 }, false);
 
-canvas.addEventListener("mousedown", function (e) {
+canvas2.addEventListener("mousedown", function (e) {
     startPoint = [e.offsetX, e.offsetY];
     lastPoint = [e.offsetX, e.offsetY];
+    console.log("testse");
     lineSegments = [];
     isMouseDown = true;
 }, false);
 
-canvas.addEventListener("mouseup", function (e) {
+canvas2.addEventListener("mouseup", function (e) {
     if (isMouseDown) { checkSelection(); }
     isMouseDown = false;
 }, false);
 
 
 function inCanvas(x) {
-    return x >= 0 && x < canvas.width; // assumes canvas is square.
+    return x >= 0 && x < canvas2.width; // assumes canvas2 is square.
 }
 
 function checkSelection() {
@@ -301,14 +303,14 @@ var lineSegments = [];
 const objectCount = 25; // 25 prolly
 var objects = [];
 for (let i = 0; i < objectCount; i++) {
-    let shape = Shape.Random(canvas.width, canvas.height)
+    let shape = Shape.Random(canvas2.width, canvas2.height)
     objects.push(shape);
 }
 
 // -------------------------------------------------------------------------- //
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas2.width, canvas2.height);
 
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 1;

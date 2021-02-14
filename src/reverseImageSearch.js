@@ -1,3 +1,4 @@
+/*
 function createImage(imgID){
     
     var image = document.createElement("img");
@@ -29,6 +30,7 @@ for(let i = 0; i < 9; i++) {
     createImage("img" + i);
     
 }
+*/
 
 
 
