@@ -110,10 +110,11 @@ function drawShape(shape, ctx) {
     ctx.stroke();
 }
 
+/*
 function drawPixel(shape, ctx) {
     ctx.fillStyle = shape.colour;
     ctx.fillRect(shape.x, shape.y, 1, 1);
-}
+}*/
 
 class Shape {
     static speed = 1;
@@ -165,7 +166,6 @@ class Shape {
         });
 
         // checks if this item collides with any line segments, and if so it bounces off the first one in the list only.
-        // TODO: do a combined vector?
         for(let i = 0; i < lineSegments.length; i++) {
             let line = lineSegments[i];
             let [xint, yint, distance] = distanceToCircle(this.x, this.y, line.x, line.y, line.lastx, line.lasty);
@@ -205,13 +205,11 @@ var isMouseDown = false;
 // setting up mouse event listeners.
 canvas.addEventListener("mousemove", function (e) {
     if (isMouseDown && distance(e.offsetX, e.offsetY, lastPoint[0], lastPoint[1]) >= minSegmentSize) {
-        lineSegments.push(new MouseSegment(lastPoint[0], lastPoint[1], e.offsetX, e.offsetY));
-        
         //checks if the point is close to the starting point to set mousedown to false.
         if (lineSegments.length > minLineSegments && distance(e.offsetX, e.offsetY, startPoint[0], startPoint[1]) <= epsilon) {
             isMouseDown = false;
+            lineSegments.push(new MouseSegment(lastPoint[0], lastPoint[1], startPoint[0], startPoint[1]));
             checkSelection();
-            lastPoint = [e.offsetX, e.offsetY];
             return;
         }
 
@@ -221,11 +219,13 @@ canvas.addEventListener("mousemove", function (e) {
             let hasIntersection = intersects(e.offsetX, e.offsetY, lastPoint[0], lastPoint[1], line.x, line.y, line.lastx, line.lasty);
             if (hasIntersection) {
                 isMouseDown = false;
+                lineSegments.push(new MouseSegment(lastPoint[0], lastPoint[1], startPoint[0], startPoint[1]));
                 checkSelection();
-                break;
+                return;
             }
         }
 
+        lineSegments.push(new MouseSegment(lastPoint[0], lastPoint[1], e.offsetX, e.offsetY));
         lastPoint = [e.offsetX, e.offsetY];
     }
 }, false);
@@ -238,123 +238,57 @@ canvas.addEventListener("mousedown", function (e) {
 }, false);
 
 canvas.addEventListener("mouseup", function (e) {
+    if (isMouseDown) { checkSelection(); }
     isMouseDown = false;
-    checkSelection();
 }, false);
 
-/*
-// effectively a recursive floodfill algorithm.
-pub fn find_walkable_spaces(map: &TileMatrix, current: Point2D, walk_map: &mut BitMatrix) {
-    let adjacent: Vec<Point2D> = vec![ 
-        current.from(Action::Left),
-        current.from(Action::Right),
-        current.from(Action::Up),
-        current.from(Action::Down),
-    ];
-    for point in adjacent {
-        if walk_map.get(point).unwrap() == false {
-            match map.get(point) {
-                Tile::Floor => {
-                    walk_map.set(point, true);
-                    find_walkable_spaces(map, point, walk_map);
-                },
-                Tile::Goal => {
-                    walk_map.set(point, true);
-                    find_walkable_spaces(map, point, walk_map);
-                },
-                _ => (),
-            }
-        }
-    }
-}*/
 
 function inCanvas(x) {
     return x >= 0 && x < canvas.width; // assumes canvas is square.
 }
 
 function checkSelection() {
-    // TODO: use the polygon intersection algorithm instead!
+    // Uses the polygon intersection algorithm!
     // -> for each node check if it is in the shape. all current should be in and not current outside.
     // time is O(nodes * pathlen)
-    //
-    
-     /*
-    // create alternate canvas.
-    let altcanvas = document.createElement("canvas");
-    let altctx = altcanvas.getContext("2d");
 
-    // blit all line segments onto it.
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
-    lineSegments.forEach(segment => segment.draw(altctx));
+    let isValid = true;
+    for(let i = 0; i < objects.length; i++) {
+        let shape = objects[i];
+        let intersections = 0;
+        lineSegments.forEach(segment => { 
+            if(intersects(shape.x, shape.y, 0, 0, segment.x, segment.y, segment.lastx, segment.lasty)) {
+                intersections += 1;
+            }
+        });
 
-    // blit all nodes w/ colour onto the area. (as pixels)
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 1;
-    objects.forEach(shape => drawPixel(shape, ctx));
-    
-    // first, find positions of all nodes with a certain colour.
-    let colouredNodes = [];
-    objects.forEach(shape => { if (shape.colour == targetColour) {colouredNodes.push([shape.x, shape.y, shape.id]);} });
-
-    // search between all nodes of the selected colour.
-    let stack = [[Math.floor(colouredNodes[0][0]), Math.floor(colouredNodes[0][1])]];
-    let traversed = new Array(400 * 400).fill(0);
-    
-    let targetColourData = colourNameToRGB(targetColour);
-
-    let validNodesSelected = 1;
-    let isValidSelection = true;
-    
-   
-    while (stack.length != 0) {
-        let cur = stack.pop();
-        traversed[cur[0] + 400 * cur[1]] = 1;
-        
-        //console.log(cur);
-
-        let colour = altctx.getImageData(cur[0], cur[1], 1, 1).data;
-        if (colour[0] == targetColourData[0] && colour[1] == targetColourData[1] && colour[2] == targetColourData[2]) {
-            validNodesSelected += 1;
-        } else if (colour[0] == 0 && colour[1] == 0 && colour[2] == 0 && 
-                   colour[0] == 255 && colour[1] == 255 && colour[2] == 255) {
-            isValidSelection = false;
+        if (shape.colour == targetColour && intersections % 2 == 0) {
+            isValid = false;
+            break;
+        } else if (shape.colour != targetColour && intersections % 2 == 1) {
+            isValid = false;
             break;
         }
-        
-        let up = [cur[0]-1, cur[1]];
-        if (inCanvas(up[0]) && inCanvas(up[1]) && traversed[up[0] + 400 * up[1]] == 0) {
-            stack.push(up);
-        }
-        
-        let down = [cur[0]+1, cur[1]];
-        if (inCanvas(down[0]) && inCanvas(down[1]) && traversed[down[0] + 400 * down[1]] == 0) {
-            stack.push(down);
-        }
-        
-        let left = [cur[0], cur[1]-1];
-        if (inCanvas(left[0]) && inCanvas(left[1]) && traversed[left[0] + 400 * left[1]] == 0) {
-            stack.push(left);
-        }
-        
-        let right = [cur[0], cur[1]+1];
-        if (inCanvas(right[0]) && inCanvas(right[1]) && traversed[right[0] + 400 * right[1]] == 0) {
-            stack.push(right);
-        }
-
     }
 
-    if(isValidSelection && validNodesSelected == colouredNodes.length) {
-        // removes all nodes.
-        colouredNodes.forEach( el => {
-            let index = objects.find(obj => obj.id = el);
+    if(isValid) {
+        // first, find positions of all nodes with a certain colour.
+        let colouredNodes = [];
+        objects.forEach(shape => { if (shape.colour == targetColour) {colouredNodes.push(shape.id);} });
+        
+        // removes all nodes of the valid colour.
+        colouredNodes.forEach(el => {
+            let index = objects.findIndex(obj => obj.id == el);
             objects.splice(index, 1);
         });
 
         lineSegments = [];
+        circleCaptchaComplete = true;
+        document.getElementById("cap3-complete").innerHTML = "You completed this captcha!";
+
     } else {
         lineSegments = [];
-    }*/
+    }
 }
 
 // -------------------------------------------------------------------------- //
@@ -364,7 +298,7 @@ var lastPoint = [];
 var lineSegments = [];
 
 // generate objects
-const objectCount = 30; // 25 prolly
+const objectCount = 25; // 25 prolly
 var objects = [];
 for (let i = 0; i < objectCount; i++) {
     let shape = Shape.Random(canvas.width, canvas.height)
@@ -391,6 +325,7 @@ setInterval(draw, 1000/50); // 50fps
 
 // -------------------------------------------------------------------------- //
 
+var circleCaptchaComplete = false;
 var selectedColours = [];
 var targetColour = COLOURS[Math.floor(Math.random() * COLOURS.length)];
-document.getElementById("cap3-title").innerHTML = "Captcha 3: Circle all the " + targetColour + " nodes";
+document.getElementById("cap3-title").innerHTML = "Captcha 3: Circle all of the " + targetColour + " nodes only";
