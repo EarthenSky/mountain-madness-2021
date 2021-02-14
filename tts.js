@@ -3,8 +3,6 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 
-var speechcall;
-
 function makeid(length) {
    var result           = [];
    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -37,13 +35,28 @@ function populateVoiceList() {
       option.setAttribute('data-name', voices[i].name);
       voiceSelect.appendChild(option);
     }
-  }
+}
 
+  
+function tts(){
     for(i = 0; i < 5; i++){
-    
-    var utterThis = new SpeechSynthesisUtterance(speechcall[i]);
-    utterThis.voice = voices[8];
-    utterThis.pitch = 9;
-    utterThis.rate = 0.3;
-    synth.speak(utterThis);
+        var utterThis = new SpeechSynthesisUtterance(speechcall[i]); //this will read the values
+        utterThis.voice = voices[8];
+        utterThis.pitch = 9;
+        utterThis.rate = 0.3;
+        synth.speak(utterThis);
     }
+}
+
+function voice_validator() {
+    event.preventDefault();
+    debugger;
+    if (document.getElementById("voice_box").value == speechcall) {
+        alert("Correct Captcha, please move forward!");
+    } else {
+        alert("Invalid Captcha. Please try again.");
+        tts();
+    }
+}
+
+    
