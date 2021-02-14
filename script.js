@@ -71,23 +71,23 @@ function validator() {
         alert("Invalid Captcha. Please try again.");
         generator();
     }
-
 }
+
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 var speechcall = [];
 function makeid() {
-   var result           = [];
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-   var charactersLength = characters.length;
-   let length = 5;
-   for ( var i = 0; i < length; i++ ) {
-      result[i] = characters.charAt(Math.floor(Math.random() * charactersLength + ''));
-   }
-   speechcall = result;
-   return result;
+    var result           = [];
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var charactersLength = characters.length;
+    let length = 5;
+    for ( var i = 0; i < length; i++ ) {
+        result[i] = characters.charAt(Math.floor(Math.random() * charactersLength + ''));
+    }
+    speechcall = result;
+    return result;
 }
 
 var synth = window.speechSynthesis;
@@ -96,23 +96,22 @@ var rateValue = 1; // the rate of the voice will be normal
 var voices = [];
 
 function populateVoiceList() {
-    voices = synth.getVoices();
-  
-    for(i = 0; i < voices.length ; i++) {
-      var option = document.createElement('option');
-      option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
-  
-      if(voices[i].default) {
-        option.textContent += ' -- DEFAULT';
-      }
-  
-      option.setAttribute('data-lang', voices[i].lang);
-      option.setAttribute('data-name', voices[i].name);
-      voiceSelect.appendChild(option);
-    }
+        voices = synth.getVoices();
+    
+        for(i = 0; i < voices.length ; i++) {
+        var option = document.createElement('option');
+        option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+    
+        if(voices[i].default) {
+            option.textContent += ' -- DEFAULT';
+        }
+    
+        option.setAttribute('data-lang', voices[i].lang);
+        option.setAttribute('data-name', voices[i].name);
+        voiceSelect.appendChild(option);
+        }
 }
 
-  
 function tts(){
     for(i = 0; i < 5; i++){
         var utterThis = new SpeechSynthesisUtterance(speechcall[i]); //this will read the values
@@ -132,5 +131,4 @@ function voice_validator() {
     } else {
         alert("Invalid Captcha. Please try again.");
     }
-}
 }
