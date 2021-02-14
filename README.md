@@ -19,3 +19,7 @@ none
 5. Different kinds of objects & selecting -> like recaptcha -> **Justin**
 
 - website design -> **Raj**
+
+# Note:
+
+Added tts.js to script.js
