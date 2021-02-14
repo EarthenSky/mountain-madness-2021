@@ -1,6 +1,3 @@
-//array to store the images
-var images = new Array();
-
 function createImage(imgID){
     
     var image = document.createElement("img");
@@ -10,6 +7,18 @@ function createImage(imgID){
     image.style.width = '1024px';
     document.getElementById("reverseImageSearch").appendChild(image);
 }
+
+//array to store the images
+var images = new Array();
+
+var table = document.createElement("TABLE");
+table.setAttribute("id", "imageTable");
+document.body.appendChild(table);
+document.getElementById("reverseImageSearch");
+
+var cells = document.createElement("TR");
+cells.setAttribute("id", "imgCell");
+document.getElementById("imageTable").appendChild(cells);
 
 for(let i = 0; i < 9; i++) {
     createImage("img" + i);
