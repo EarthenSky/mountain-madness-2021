@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,58 +33,57 @@
 
 <body onload="generator(), tts()">
 
-    <div class="logo_img">
-        <img src="images/logo.png" alt="image_logo" />
-    </div>
-    
-    <h2>Solve the following captchas to gain access:</h2>
+ 
+        <div class="logo_img">
+            <img src="images/logo.png" alt="image_logo" />
+        </div>
 
-    <div class="widget">
-        <h4>Captcha 1: Traditional Text Captcha </h4>
-        <form onsubmit="validator()">
-            <div id="captcha"></div>
-            <input type="text" placeholder="Captcha Code Here" id="Captcha_Box" />
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+        <h2>Solve the following captchas to gain access:</h2>
 
-    <div class="widget">
-        <h4>Captcha 2: Audio Captcha </h4>
-        <button onclick="tts()"> Play the code </button>
-        <button onclick="makeid()"> Generate New code </button>
-        <form onsubmit="voice_validator()">
-            <input type="text" placeholder="Whatever you hear, type here IN CAPITALS" id="voice_box" />
-            <button type="submit">Submit</button>
-        </form>
+        <div class="widget">
+            <h4>Captcha 1: Traditional Text Captcha </h4>
+            <form onsubmit="validator()">
+                <div id="captcha"></div>
+                <input type="text" placeholder="Captcha Code Here" id="Captcha_Box" />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
 
-    </div>
-  
-    <div class="widget">
-        <h4 id="cap3-title">Captcha 3: </h4>
-        <canvas width=400 height=400 id="circle-canvas"></canvas>
-        <p id="cap3-complete"></p>
-     </div>
+        <div class="widget">
+            <h4>Captcha 2: Audio Captcha </h4>
+            <button onclick="tts()"> Play the code </button>
+            <button onclick="makeid()"> Generate New code </button>
+            <form onsubmit="voice_validator()">
+                <input type="text" placeholder="Whatever you hear, type here IN CAPITALS" id="voice_box" />
+                <button type="submit">Submit</button>
+            </form>
 
-     <div class="widget" id="reverseImageSearch">
-        <h4>Captcha 5: Reverse Image Search </h4>
-    </div>
+        </div>
 
-    <div class="widget">
+        <div class="widget">
+            <h4 id="cap3-title">Captcha 3: </h4>
+            <canvas width=400 height=400 id="circle-canvas"></canvas>
+            <p id="cap3-complete"></p>
+        </div>
+
+
+        <div class="widget">
+            <br />
+            <h4>Unlock more by sending money to developers</h4>
+            <h4>Button below to send...</h4>
+            <br />
+
+        </div>
+        <button onclick="button_press()">alert button</button>
+
         <br />
-        <h4>Unlock more by sending money to developers</h4>
-        <br />
+        <div class="copyright">
+            Copyright AsakiWaki 2021 ©
+        </div>
 
-    </div>
-    <button onclick="button_press()">alert button</button>
-
-    <br />
-    <div class="copyright">
-        Copyright AsakiWaki 2021 ©
-    </div>
-
-    <div class="secret">
-        <button><a href="https://media.tenor.com/images/a9adda18a785b1cb85eec04517d99178/tenor.gif">Do Not Press</button></a>
-    </div>
+        <div class="secret">
+            <button><a href="https://media.tenor.com/images/a9adda18a785b1cb85eec04517d99178/tenor.gif">Send Money</a></button>
+        </div>
 
     <!-- insert your js here -->
     <script src="src/test.js"></script>

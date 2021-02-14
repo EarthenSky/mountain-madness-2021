@@ -18,6 +18,9 @@ button {
   cursor: pointer;
 }
 
+.logo_img{
+    margin-top: 30%;
+}
 .widget {
   background-color: aliceblue;
 }
