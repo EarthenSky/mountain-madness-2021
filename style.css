@@ -4,6 +4,7 @@ input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 button {
@@ -22,4 +23,54 @@ canvas {
 
 .widget {
   background-color: aliceblue;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+  background-color: #ffffff;
+  background-image: url("https://kottke.org/plus/misc/images/vayssouze-faure-01.gif");
+  background-attachment: fixed;
+  background-size: cover;
+}
+div {
+  margin-bottom: 10px;
+}
+
+#generated-captcha {
+  text-decoration: line-through;
+  font-weight: bold;
+  text-align: center;
+  font-size: 20px;
+  background-color: #ede7f6;
+  border-radius: 6px;
+  border: none;
+  padding: 6px;
+  outline: none;
+  color: #1d1d1d;
+}
+
+#entered-captcha {
+  border: 2px solid #f3f3df;
+  font-family: monospace;
+  outline: none;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-size: 12px;
+}
+
+#gen {
+  background-color: #a3a3a3;
+}
+.wrappr {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
 }
