@@ -1,3 +1,4 @@
+
 input[type="text"] {
   padding: 12px 20px;
   display: inline-block;
@@ -33,11 +34,13 @@ body {
   padding: 0;
   margin: 0;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   background-image: url("https://kottke.org/plus/misc/images/vayssouze-faure-01.gif");
   background-attachment: fixed;
   background-size: cover;
 }
+
+
 div {
   margin-bottom: 10px;
 }
