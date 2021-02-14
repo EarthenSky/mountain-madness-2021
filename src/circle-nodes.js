@@ -19,6 +19,38 @@ function distance(x, y, x2, y2) {
     return Math.sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2));
 }
 
+// returns the closest distance from a point in the line segment 1->2 to p.
+function hasIntersect(px, py, px2, py2, x1, y1, x2, y2) {
+    let minx = Math.min(x1, x2);
+    let maxx = Math.max(x1, x2);
+    let miny = Math.min(y1, y2);
+    let maxy = Math.max(y1, y2);
+
+    let xint = 0; 
+    let yint = 0;
+    
+    if (x1 - x2 == 0) { // case: line is vertical
+        xint = x2;
+        yint = py;
+    } else if (y1 - y2 == 0) { // case: line is horizontal
+        xint = px;
+        yint = y2;
+    } else {
+        let m1 = (y1 - y2) / (x1 - x2); 
+        let m2 = (py - py2) / (px - px2);
+
+        xint = (-m2 * px + m1 * x1 + py - y1) / (m1 - m2);
+        yint = m1 * (xint - x1) + y1;
+        
+    }
+
+    if (xint <= maxx && xint >= minx && yint <= maxy && yint >= miny) {
+        return true; //distance(px, py, xint, yint);
+    } else {
+        return false; 
+    }
+}
+
 function drawShape(shape, ctx) {
     ctx.fillStyle = shape.colour;
     if (shape.type == CIRCLE) {
@@ -78,26 +110,92 @@ class Shape {
         else if (this.y > canvas.height) { this.y = canvas.height; this.changeDirection(); }
     }
 
-    // TODO: improve collision detection
+    // TODO: improve collision detection by 2x
     checkCollision(objects) {
         objects.forEach(obj => {
             if (obj.id != this.id && distance(this.x, this.y, obj.x, obj.y) <= 2*Shape.radius) {
                 this.direction = Math.atan2((this.y-obj.y), (this.x-obj.x));
-                // this.changeDirection();
             }
         });
+
+        // TODO: collide with line segments.
     }
 
 };
+
+class MouseSegment {
+    constructor(x, y, lastx, lasty) {
+        this.x = x;
+        this.y = y;
+
+        this.lastx = lastx;
+        this.lasty = lasty;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.lastx, this.lasty);
+        ctx.lineTo(this.x, this.y);
+        ctx.stroke();
+    }
+}
 
 
 // global variables
 var canvas = document.getElementById("circle-canvas");
 var ctx = canvas.getContext("2d");
-ctx.lineWidth = 1;
+
+const epsilon = 3;
+const minLineSegments = 10; // about 200ms or so
+
+var isMouseDown = false;
+// setting up mouse event listeners.
+canvas.addEventListener("mousemove", function (e) {
+    if (isMouseDown) {
+        lineSegments.push(new MouseSegment(lastPoint[0], lastPoint[1], e.offsetX, e.offsetY));
+        lastPoint = [e.offsetX, e.offsetY];
+    
+        //checks if the point is close to the starting point to set mousedown to false.
+        if (lineSegments.length > minLineSegments && distance(e.offsetX, e.offsetY, startPoint[0], startPoint[1]) <= epsilon) {
+            isMouseDown = false;
+        }
+
+        // checks if the newest line intersects, if it does, then it stops
+        let recentLines = 2;
+        for(let i = 0; i < lineSegments.length-1-recentLines; i++) {
+            let line = lineSegments[i];
+            let hasIntersection = hasIntersect(e.offsetX, e.offsetY, startPoint[0], startPoint[1], line.x, line.y, line.lastx, line.lasty);
+            if (hasIntersection) { // & line bigger than a certain amount.
+                isMouseDown = false;
+                break;
+            }
+        }
+    }
+}, false);
+
+canvas.addEventListener("mousedown", function (e) {
+    startPoint = [e.offsetX, e.offsetY];
+    lastPoint = [e.offsetX, e.offsetY];
+    lineSegments = [];
+    isMouseDown = true;
+}, false);
+
+canvas.addEventListener("mouseup", function (e) {
+    isMouseDown = false;
+}, false);
+
+/*
+canvas.addEventListener("mouseout", function (e) {
+    //findxy('out', e)
+}, false);
+*/
+
+var startPoint = [];
+var lastPoint = [];
+var lineSegments = [];
 
 // generate objects
-const objectCount = 40; // 25 prolly
+const objectCount = 30; // 25 prolly
 var objects = [];
 for (let i = 0; i < objectCount; i++) {
     let shape = Shape.Random(canvas.width, canvas.height)
@@ -105,11 +203,21 @@ for (let i = 0; i < objectCount; i++) {
 }
 
 function draw() {
+    if (isMouseDown) {
+        // ?
+    }
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 1;
     objects.forEach(shape => shape.draw(ctx));
     objects.forEach(shape => shape.checkCollision(objects));
     objects.forEach(shape => shape.update());
+
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 2;
+    lineSegments.forEach(segment => segment.draw());
 }
 
 setInterval(draw, 1000/50); // 50fps
