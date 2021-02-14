@@ -1,16 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" >
 
     <head>
-        <title>Cool name here</title>
-        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <title>Gotta Captcha Them All</title>
+        <link rel="stylesheet" href="./style.css">
     </head>
 
-    <body>
+    <body onload="generator()">
         <h3>Solve the following captchas to gain access:</h3>
         
         <div class="widget"> 
-            <h4>Captcha 1: asgdasdg </h4>
-            
+            <h4>Captcha 1: Text Captcha </h4>
+            <form onsubmit="validator()">
+                <div id="captcha"></div>
+                <input type="text" placeholder="Captcha Code Here" id="Captcha_Box" />
+                <button type="submit">Submit</button>
+                </form>
         </div>
 
         <div class="widget"> 
@@ -36,7 +42,8 @@
         <button onclick="button_press()">alert button</button>
 
         <!-- insert your js here -->
-        <script src="src/test.js"></script>
+        <script  src="./script.js"></script>
+        <!-- <script src="src/test.js"></script> -->
     </body>
 
 </html>
