@@ -4,7 +4,9 @@ Submission for mountain madness 2021!
 
 # The Project:
 
-We see versions of captcha codes almost on every site we visit in today's day and age, and which is why our project revolves around captcha codes of varying complexities based on the title of the book, Humans vs Computers by Gojko Adzic. Please feel free to give them a shot, and see if you are a bot or not? Gotta captcha them all!
+We see versions of captcha codes almost on every site we visit in today's day and age, and which is why our project revolves around captcha codes of varying complexities based on the title of the book, Humans vs Computers by Gojko Adzic. Please feel free to give them a shot, and see if you are a bot or not? 
+
+Simply clone this repository and run the index.html file in a browser such as Chrome. Afterall you gotta captcha them all!
 
 # language:
 
