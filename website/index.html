@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Gotta Captcha Them All</title>
+    <title>No Longer Human - Gotta Captcha Them All</title>
     <link rel="stylesheet" href="./style.css">
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -32,64 +32,64 @@
 </head>
 
 <body onload="generator(), tts()">
+    <div class="logo_img">
+        <img src="images/logo.png" alt="image_logo" />
+    </div>
 
- 
-        <div class="logo_img">
-            <img src="images/logo.png" alt="image_logo" />
-        </div>
+    <h1>Project No Longer Human</h1>
+    <h2>Solve the following captchas in order to gain access:</h2>
 
-        <h2>Solve the following captchas to gain access:</h2>
+    <div class="widget">
+        <h4>Captcha 1: Traditional Text Captcha </h4>
+        <form onsubmit="validator()">
+            <div id="captcha"></div>
+            <input type="text" placeholder="Captcha Code Here" id="Captcha_Box" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
-        <div class="widget">
-            <h4>Captcha 1: Traditional Text Captcha </h4>
-            <form onsubmit="validator()">
-                <div id="captcha"></div>
-                <input type="text" placeholder="Captcha Code Here" id="Captcha_Box" />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+    <div class="widget">
+        <h4>Captcha 2: Audio Captcha </h4>
+        <button onclick="tts()"> Play the code </button>
+        <button onclick="makeid(7)"> Generate New code </button>
+        <form onsubmit="voice_validator()">
+            <input type="text" placeholder="Whatever you hear, type here IN CAPITALS" id="voice_box" />
+            <button type="submit">Submit</button>
+        </form>
 
-        <div class="widget">
-            <h4>Captcha 2: Audio Captcha </h4>
-            <button onclick="tts()"> Play the code </button>
-            <button onclick="makeid()"> Generate New code </button>
-            <form onsubmit="voice_validator()">
-                <input type="text" placeholder="Whatever you hear, type here IN CAPITALS" id="voice_box" />
-                <button type="submit">Submit</button>
-            </form>
+    </div>
 
-        </div>
-
-        <div class="widget">
-            <h4 id="cap3-title">Captcha 3: </h4>
-            <canvas width=400 height=400 id="circle-canvas"></canvas>
-            <p id="cap3-complete"></p>
-        </div>
+    <div class="widget">
+        <h4 id="cap3-title">Captcha 3: </h4>
+        <canvas class="center" width=400 height=400 id="circle-canvas"></canvas>
+        <p id="cap3-complete"></p>
+    </div>
 
 
-        <div class="widget">
-            <br />
-            <h4>Unlock more by sending money to developers</h4>
-            <h4>Button below to send...</h4>
-            <br />
-
-        </div>
-        <button onclick="button_press()">alert button</button>
-
+    <div class="widget">
         <br />
-        <div class="copyright">
-            Copyright AsakiWaki 2021 ©
-        </div>
+        <h4>Unlock more by sending money to developers</h4>
+        <h4>Button below to send...</h4>
+        <br />
 
-        <div class="secret">
-            <button><a href="https://media.tenor.com/images/a9adda18a785b1cb85eec04517d99178/tenor.gif">Send Money</a></button>
-        </div>
+    </div>
+
+    <br />
+
+    <div class="secret">
+        <button><a href="https://media.tenor.com/images/a9adda18a785b1cb85eec04517d99178/tenor.gif">Send Money</a></button>
+    </div>
+
+    <div class="copyright">
+        Copyright AsakiWaki 2021 ©
+    </div>
+    <br />
 
     <!-- insert your js here -->
-    <script src="src/test.js"></script>
     <script src="src/reverseImageSearch.js"></script>
     <script src="./script.js"></script>
     <script src="src/circle-nodes.js"></script>
-    <!-- <script src="src/test.js"></script> -->
+    <script src="src/tts.js"></script>
+
 </body>
 </html>

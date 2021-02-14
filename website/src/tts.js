@@ -2,7 +2,7 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-
+var speechcall = [];
 function makeid(length) {
    var result           = [];
    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -10,10 +10,13 @@ function makeid(length) {
    for ( var i = 0; i < length; i++ ) {
       result[i] = characters.charAt(Math.floor(Math.random() * charactersLength + ''));
    }
-   return result;
+   //return result;
+   speechcall = result;
+   console.log(speechcall);
 }
-var speechcall = [];
-speechcall = makeid(5); // this is our input txt for the program
+
+makeid(5); // this is our input txt for the program
+
 
 var synth = window.speechSynthesis;
 var pitchValue = 1; //the pitch value will be normal
@@ -50,8 +53,7 @@ function tts(){
 
 function voice_validator() {
     event.preventDefault();
-    debugger;
-    if (document.getElementById("voice_box").value == speechcall) {
+    if (document.getElementById("voice_box").value.toUpperCase() == speechcall.join('')) {
         alert("Correct Captcha, please move forward!");
     } else {
         alert("Invalid Captcha. Please try again.");

@@ -1,4 +1,3 @@
-
 input[type="text"] {
   padding: 12px 20px;
   display: inline-block;
@@ -19,14 +18,19 @@ button {
 }
 
 .logo_img{
-    margin-top: 30%;
+  margin-top: 30%;
 }
 .widget {
   background-color: aliceblue;
 }
 
 #circle-canvas {
-    border: 2px solid black;
+  border: 2px solid black;
+  margin-left: 22px;
+}
+
+.center {
+  margin: auto;
 }
 
 body {
@@ -34,7 +38,7 @@ body {
   justify-content: center;
   height: 100vh;
   align-items: center;
-  padding: 0;
+  padding: 4px;
   margin: 0;
   flex-direction: column;
   background-color: #FFFFFF;
@@ -42,7 +46,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
-
 
 div {
   margin-bottom: 10px;
@@ -73,6 +76,7 @@ div {
 #gen {
   background-color: #a3a3a3;
 }
+
 .wrappr {
   /* border: 1px solid red; */
   display: flex;

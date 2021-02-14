@@ -7,7 +7,7 @@ function generator() {
 
     let min = Math.ceil(6);
     let max = Math.floor(9);
-    let op = Math.floor(Math.random() * (max - min + 1) + min) / 10;
+    let op = Math.floor(Math.random() * (max - min + 1) + min) / 12;
 
     document.getElementById("captcha").innerHTML = "";
     var Charachter_Data = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*(){}|?<>";
@@ -39,7 +39,7 @@ function generator() {
         }
     }
 
-    let grain_number = Math.floor(Math.random() * 1000);
+    let grain_number = Math.floor(Math.random() * 2000 + 750);
     let counter;
 
     for (counter = 0; counter < grain_number; counter++) {
@@ -63,7 +63,6 @@ function generator() {
 
 function validator() {
     event.preventDefault();
-    debugger;
     if (document.getElementById("Captcha_Box").value == code) {
         alert("Correct Captcha, please move forward!");
         generator();

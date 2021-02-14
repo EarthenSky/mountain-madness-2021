@@ -1,6 +1,7 @@
 # Mountain Madness 2021
 
 Submission for mountain madness 2021! 
+- Project / Book Name: *No Longer Human*
 - Group Name: **AsakiWaki**
 
 # The Project:
@@ -9,15 +10,15 @@ We see versions of captcha codes almost on every site we visit in today's day an
 
 Simply clone this repository and run the index.html file in a browser such as Chrome. Afterall you gotta captcha them all!
 
-# language:
+# Language:
 
 1. Javascript
 2. HTML
 3. CSS
 
-# dependencies:
+# Dependencies:
 
-No dependencies
+No explicit dependencies
 
 # Tasks:
 
@@ -27,7 +28,7 @@ No dependencies
 4. Histogram move thing -> **Raj** \*Future Development
 5. Different kinds of objects & selecting -> like recaptcha -> **Justin** \*Future Development
 
-- website design -> **Sahaj and Raj**
+6. website design -> **Sahaj and Raj**
 
 # Note:
 
