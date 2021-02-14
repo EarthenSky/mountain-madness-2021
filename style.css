@@ -25,6 +25,10 @@ canvas {
   background-color: aliceblue;
 }
 
+#circle-canvas {
+    border: 2px solid black;
+}
+
 body {
   display: flex;
   justify-content: center;
