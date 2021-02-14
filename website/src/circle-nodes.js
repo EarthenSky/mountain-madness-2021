@@ -287,6 +287,7 @@ function checkSelection() {
         lineSegments = [];
         circleCaptchaComplete = true;
         document.getElementById("cap3-complete").innerHTML = "You completed this captcha!";
+        alert("Correct Captcha, you have actually captchad them all!!");
 
     } else {
         lineSegments = [];
