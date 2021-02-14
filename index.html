@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="./style.css">
     </head>
 
-    <body onload="generator()">
+    <body onload="generator(), tts()">
         <h3>Solve the following captchas to gain access:</h3>
         
         <div class="widget"> 
@@ -20,7 +20,13 @@
         </div>
 
         <div class="widget"> 
-            <h4>Captcha 2: asgdasdg </h4>
+            <h4>Captcha 2: Audio Captcha </h4>
+            <button onclick="tts()"> Play the code </button>
+            <button onclick="makeid()"> Generate New code </button>
+            <form onsubmit="voice_validator()">
+            <input type = "text" placeholder = "Whatever you hear, type here IN CAPITALS" id = "voice_box" />
+            <button type="submit">Submit</button>            
+            </form>
             
         </div>
 
