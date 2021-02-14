@@ -1,3 +1,7 @@
 .widget {
     background-color: aliceblue;
 }
+
+#circle-canvas {
+    border: 2px solid black;
+}
